@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="mdl-cell mdl-cell--3-col">
+	<div class="demo-card-wide mdl-card mdl-shadow--2dp">
+		<div class="mdl-card__title">
+			<h2 class="mdl-card__title-text">Info</h2>
+		</div>
+		<div class="mdl-card__supporting-text">
+			<span class="mdl-chip">
+				<span class="mdl-chip__text">{{user}}</span>
+			</span>
+			<ul class="demo-list-icon mdl-list">
+				<li class="mdl-list__item">
+					<span class="mdl-list__item-primary-content">
+						<i class="material-icons mdl-list__item-icon">person</i>
+						{{user.name}}: {{user.lastname}}
+					</span>
+				</li>
+			</ul>
+		</div>
+		<div class="mdl-card__actions mdl-card--border">
+			<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="/edit">
+				Edit Profile
+			</a>
+		</div>
+	</div>
+</div>
+<div class="mdl-cell mdl-cell--3-col">
+	<div class="demo-card-wide mdl-card mdl-shadow--2dp">
+		<div class="mdl-card__title">
+			<h2 class="mdl-card__title-text">Profit</h2>
+		</div>
+		<div class="mdl-card__supporting-text">
+			<span class="mdl-chip">
+				<span class="mdl-chip__text">{{user.profit}}</span>
+			</span>
+		</div>
+	</div>
+</div>
+<div class="mdl-cell mdl-cell--3-col">
+	<div class="demo-card-wide mdl-card mdl-shadow--2dp">
+		<div class="mdl-card__title">
+			<h2 class="mdl-card__title-text">Travel Count</h2>
+		</div>
+		<div class="mdl-card__supporting-text">
+			<span class="mdl-chip">
+				<span class="mdl-chip__text">{{travel_count}}</span>
+			</span>
+		</div>
+	</div>
+</div>
+<div class="mdl-cell mdl-cell--3-col">
+	<div class="demo-card-wide mdl-card mdl-shadow--2dp">
+		<div class="mdl-card__title">
+			<h2 class="mdl-card__title-text">Stars</h2>
+		</div>
+		<div class="mdl-card__supporting-text">
+			<span class="mdl-chip">
+				<span class="mdl-chip__text">{{avg}}</span>
+			</span>
+		</div>
+	</div>
+</div>
+{% endblock %}
+{% block menu %}
+<div class="mdl-layout__tab-bar mdl-js-ripple-effect mdl-color--primary-dark">
+	<a href="/driver-dashboard/" class="mdl-layout__tab is-active">Dashboard</a>
+	<a href="/travel/find" class="mdl-layout__tab">find new travel</a>
+	<a href="/travel/list" class="mdl-layout__tab">travel list</a>
+	<a href="/edit" class="mdl-layout__tab">Edit Profile</a>
+	<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-shadow--4dp mdl-color--accent" id="add">
+		<i class="material-icons" role="presentation">add</i>
+		<span class="visuallyhidden">Add</span>
+	</button>
+</div>
+{% endblock %}

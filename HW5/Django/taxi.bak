@@ -1,0 +1,1501 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 9.5.14
+-- Dumped by pg_dump version 10.8 (Ubuntu 10.8-0ubuntu0.18.04.1)
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: auth_group; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.auth_group (
+    id integer NOT NULL,
+    name character varying(150) NOT NULL
+);
+
+
+ALTER TABLE public.auth_group OWNER TO postgres;
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.auth_group_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_group_id_seq OWNER TO postgres;
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.auth_group_id_seq OWNED BY public.auth_group.id;
+
+
+--
+-- Name: auth_group_permissions; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.auth_group_permissions (
+    id integer NOT NULL,
+    group_id integer NOT NULL,
+    permission_id integer NOT NULL
+);
+
+
+ALTER TABLE public.auth_group_permissions OWNER TO postgres;
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.auth_group_permissions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_group_permissions_id_seq OWNER TO postgres;
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.auth_group_permissions_id_seq OWNED BY public.auth_group_permissions.id;
+
+
+--
+-- Name: auth_permission; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.auth_permission (
+    id integer NOT NULL,
+    name character varying(255) NOT NULL,
+    content_type_id integer NOT NULL,
+    codename character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public.auth_permission OWNER TO postgres;
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.auth_permission_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_permission_id_seq OWNER TO postgres;
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.auth_permission_id_seq OWNED BY public.auth_permission.id;
+
+
+--
+-- Name: bookmark; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.bookmark (
+    lat real NOT NULL,
+    lon real NOT NULL,
+    passenger_mobile character varying NOT NULL,
+    title character varying NOT NULL
+);
+
+
+ALTER TABLE public.bookmark OWNER TO postgres;
+
+--
+-- Name: car; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.car (
+    pelak character varying NOT NULL,
+    color character varying NOT NULL,
+    year date NOT NULL
+);
+
+
+ALTER TABLE public.car OWNER TO postgres;
+
+--
+-- Name: city; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.city (
+    id integer NOT NULL,
+    name character varying NOT NULL
+);
+
+
+ALTER TABLE public.city OWNER TO postgres;
+
+--
+-- Name: city_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.city_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.city_id_seq OWNER TO postgres;
+
+--
+-- Name: city_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.city_id_seq OWNED BY public.city.id;
+
+
+--
+-- Name: default_comment; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.default_comment (
+    id integer NOT NULL,
+    text character varying NOT NULL
+);
+
+
+ALTER TABLE public.default_comment OWNER TO postgres;
+
+--
+-- Name: default_comment_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.default_comment_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.default_comment_id_seq OWNER TO postgres;
+
+--
+-- Name: default_comment_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.default_comment_id_seq OWNED BY public.default_comment.id;
+
+
+--
+-- Name: django_admin_log; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.django_admin_log (
+    id integer NOT NULL,
+    action_time timestamp with time zone NOT NULL,
+    object_id text,
+    object_repr character varying(200) NOT NULL,
+    action_flag smallint NOT NULL,
+    change_message text NOT NULL,
+    content_type_id integer,
+    user_id character varying(11) NOT NULL,
+    CONSTRAINT django_admin_log_action_flag_check CHECK ((action_flag >= 0))
+);
+
+
+ALTER TABLE public.django_admin_log OWNER TO postgres;
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.django_admin_log_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.django_admin_log_id_seq OWNER TO postgres;
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.django_admin_log_id_seq OWNED BY public.django_admin_log.id;
+
+
+--
+-- Name: django_content_type; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.django_content_type (
+    id integer NOT NULL,
+    app_label character varying(100) NOT NULL,
+    model character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public.django_content_type OWNER TO postgres;
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.django_content_type_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.django_content_type_id_seq OWNER TO postgres;
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.django_content_type_id_seq OWNED BY public.django_content_type.id;
+
+
+--
+-- Name: django_migrations; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.django_migrations (
+    id integer NOT NULL,
+    app character varying(255) NOT NULL,
+    name character varying(255) NOT NULL,
+    applied timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.django_migrations OWNER TO postgres;
+
+--
+-- Name: django_migrations_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.django_migrations_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.django_migrations_id_seq OWNER TO postgres;
+
+--
+-- Name: django_migrations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.django_migrations_id_seq OWNED BY public.django_migrations.id;
+
+
+--
+-- Name: django_session; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.django_session (
+    session_key character varying(40) NOT NULL,
+    session_data text NOT NULL,
+    expire_date timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.django_session OWNER TO postgres;
+
+--
+-- Name: gift; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.gift (
+    type integer NOT NULL,
+    value integer DEFAULT 0 NOT NULL,
+    name character varying NOT NULL
+);
+
+
+ALTER TABLE public.gift OWNER TO postgres;
+
+--
+-- Name: gift_type_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.gift_type_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.gift_type_seq OWNER TO postgres;
+
+--
+-- Name: gift_type_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.gift_type_seq OWNED BY public.gift.type;
+
+
+--
+-- Name: gifted; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.gifted (
+    type integer NOT NULL,
+    value integer NOT NULL,
+    mobile character varying NOT NULL
+);
+
+
+ALTER TABLE public.gifted OWNER TO postgres;
+
+--
+-- Name: own; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.own (
+    pelak character varying NOT NULL,
+    mobile character varying NOT NULL
+);
+
+
+ALTER TABLE public.own OWNER TO postgres;
+
+--
+-- Name: price_per_city; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.price_per_city (
+    id integer NOT NULL,
+    price_per_kilometer integer NOT NULL
+);
+
+
+ALTER TABLE public.price_per_city OWNER TO postgres;
+
+--
+-- Name: role; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.role (
+    id integer NOT NULL,
+    name character varying NOT NULL
+);
+
+
+ALTER TABLE public.role OWNER TO postgres;
+
+--
+-- Name: role_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.role_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.role_id_seq OWNER TO postgres;
+
+--
+-- Name: role_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.role_id_seq OWNED BY public.role.id;
+
+
+--
+-- Name: takhfif; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.takhfif (
+    id integer NOT NULL,
+    "time" timestamp without time zone NOT NULL,
+    travel_id integer NOT NULL,
+    price integer DEFAULT 0 NOT NULL,
+    code character varying
+);
+
+
+ALTER TABLE public.takhfif OWNER TO postgres;
+
+--
+-- Name: takhfif_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.takhfif_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.takhfif_id_seq OWNER TO postgres;
+
+--
+-- Name: takhfif_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.takhfif_id_seq OWNED BY public.takhfif.id;
+
+
+--
+-- Name: travel; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.travel (
+    travel_id integer NOT NULL,
+    start_point real NOT NULL,
+    start_point_lon real NOT NULL,
+    starttime timestamp without time zone NOT NULL,
+    driver_mobile character varying,
+    passenger_mobile character varying NOT NULL,
+    destination_lat real NOT NULL,
+    destination_lon real NOT NULL,
+    type_of_payment character(1) NOT NULL,
+    price integer DEFAULT 0 NOT NULL,
+    final_price integer NOT NULL,
+    city_id integer NOT NULL
+);
+
+
+ALTER TABLE public.travel OWNER TO postgres;
+
+--
+-- Name: travel_part; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.travel_part (
+    travel_id integer NOT NULL,
+    no integer NOT NULL,
+    lat real NOT NULL,
+    lon real NOT NULL,
+    rest_time integer DEFAULT 0 NOT NULL
+);
+
+
+ALTER TABLE public.travel_part OWNER TO postgres;
+
+--
+-- Name: travel_travel_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.travel_travel_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.travel_travel_id_seq OWNER TO postgres;
+
+--
+-- Name: travel_travel_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.travel_travel_id_seq OWNED BY public.travel.travel_id;
+
+
+--
+-- Name: travel_vote; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.travel_vote (
+    travel_id integer NOT NULL,
+    from_id character varying NOT NULL,
+    star integer,
+    default_comment_id integer NOT NULL,
+    comment text,
+    to_id character varying NOT NULL
+);
+
+
+ALTER TABLE public.travel_vote OWNER TO postgres;
+
+--
+-- Name: users; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.users (
+    mobile character varying NOT NULL,
+    name character varying NOT NULL,
+    lastname character varying NOT NULL,
+    profit integer NOT NULL,
+    is_active boolean DEFAULT true NOT NULL,
+    role_id integer NOT NULL,
+    city_id integer NOT NULL,
+    last_login date,
+    is_superuser boolean DEFAULT false
+);
+
+
+ALTER TABLE public.users OWNER TO postgres;
+
+--
+-- Name: auth_group id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_group ALTER COLUMN id SET DEFAULT nextval('public.auth_group_id_seq'::regclass);
+
+
+--
+-- Name: auth_group_permissions id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_group_permissions ALTER COLUMN id SET DEFAULT nextval('public.auth_group_permissions_id_seq'::regclass);
+
+
+--
+-- Name: auth_permission id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_permission ALTER COLUMN id SET DEFAULT nextval('public.auth_permission_id_seq'::regclass);
+
+
+--
+-- Name: city id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.city ALTER COLUMN id SET DEFAULT nextval('public.city_id_seq'::regclass);
+
+
+--
+-- Name: default_comment id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.default_comment ALTER COLUMN id SET DEFAULT nextval('public.default_comment_id_seq'::regclass);
+
+
+--
+-- Name: django_admin_log id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_admin_log ALTER COLUMN id SET DEFAULT nextval('public.django_admin_log_id_seq'::regclass);
+
+
+--
+-- Name: django_content_type id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_content_type ALTER COLUMN id SET DEFAULT nextval('public.django_content_type_id_seq'::regclass);
+
+
+--
+-- Name: django_migrations id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_migrations ALTER COLUMN id SET DEFAULT nextval('public.django_migrations_id_seq'::regclass);
+
+
+--
+-- Name: gift type; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.gift ALTER COLUMN type SET DEFAULT nextval('public.gift_type_seq'::regclass);
+
+
+--
+-- Name: role id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.role ALTER COLUMN id SET DEFAULT nextval('public.role_id_seq'::regclass);
+
+
+--
+-- Name: takhfif id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.takhfif ALTER COLUMN id SET DEFAULT nextval('public.takhfif_id_seq'::regclass);
+
+
+--
+-- Name: travel travel_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.travel ALTER COLUMN travel_id SET DEFAULT nextval('public.travel_travel_id_seq'::regclass);
+
+
+--
+-- Data for Name: auth_group; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.auth_group (id, name) FROM stdin;
+\.
+
+
+--
+-- Data for Name: auth_group_permissions; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.auth_group_permissions (id, group_id, permission_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: auth_permission; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.auth_permission (id, name, content_type_id, codename) FROM stdin;
+1	Can add users	1	add_users
+2	Can change users	1	change_users
+3	Can delete users	1	delete_users
+4	Can view users	1	view_users
+5	Can add bookmark	2	add_bookmark
+6	Can change bookmark	2	change_bookmark
+7	Can delete bookmark	2	delete_bookmark
+8	Can view bookmark	2	view_bookmark
+9	Can add car	3	add_car
+10	Can change car	3	change_car
+11	Can delete car	3	delete_car
+12	Can view car	3	view_car
+13	Can add city	4	add_city
+14	Can change city	4	change_city
+15	Can delete city	4	delete_city
+16	Can view city	4	view_city
+17	Can add default comment	5	add_defaultcomment
+18	Can change default comment	5	change_defaultcomment
+19	Can delete default comment	5	delete_defaultcomment
+20	Can view default comment	5	view_defaultcomment
+21	Can add gift	6	add_gift
+22	Can change gift	6	change_gift
+23	Can delete gift	6	delete_gift
+24	Can view gift	6	view_gift
+25	Can add role	7	add_role
+26	Can change role	7	change_role
+27	Can delete role	7	delete_role
+28	Can view role	7	view_role
+29	Can add takhfif	8	add_takhfif
+30	Can change takhfif	8	change_takhfif
+31	Can delete takhfif	8	delete_takhfif
+32	Can view takhfif	8	view_takhfif
+33	Can add travel	9	add_travel
+34	Can change travel	9	change_travel
+35	Can delete travel	9	delete_travel
+36	Can view travel	9	view_travel
+37	Can add gifted	10	add_gifted
+38	Can change gifted	10	change_gifted
+39	Can delete gifted	10	delete_gifted
+40	Can view gifted	10	view_gifted
+41	Can add own	11	add_own
+42	Can change own	11	change_own
+43	Can delete own	11	delete_own
+44	Can view own	11	view_own
+45	Can add price per city	12	add_pricepercity
+46	Can change price per city	12	change_pricepercity
+47	Can delete price per city	12	delete_pricepercity
+48	Can view price per city	12	view_pricepercity
+49	Can add travel part	13	add_travelpart
+50	Can change travel part	13	change_travelpart
+51	Can delete travel part	13	delete_travelpart
+52	Can view travel part	13	view_travelpart
+53	Can add travel vote	14	add_travelvote
+54	Can change travel vote	14	change_travelvote
+55	Can delete travel vote	14	delete_travelvote
+56	Can view travel vote	14	view_travelvote
+57	Can add log entry	15	add_logentry
+58	Can change log entry	15	change_logentry
+59	Can delete log entry	15	delete_logentry
+60	Can view log entry	15	view_logentry
+61	Can add permission	16	add_permission
+62	Can change permission	16	change_permission
+63	Can delete permission	16	delete_permission
+64	Can view permission	16	view_permission
+65	Can add group	17	add_group
+66	Can change group	17	change_group
+67	Can delete group	17	delete_group
+68	Can view group	17	view_group
+69	Can add content type	18	add_contenttype
+70	Can change content type	18	change_contenttype
+71	Can delete content type	18	delete_contenttype
+72	Can view content type	18	view_contenttype
+73	Can add session	19	add_session
+74	Can change session	19	change_session
+75	Can delete session	19	delete_session
+76	Can view session	19	view_session
+\.
+
+
+--
+-- Data for Name: bookmark; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.bookmark (lat, lon, passenger_mobile, title) FROM stdin;
+0	1.10000002	09302450423	Here
+\.
+
+
+--
+-- Data for Name: car; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.car (pelak, color, year) FROM stdin;
+\.
+
+
+--
+-- Data for Name: city; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.city (id, name) FROM stdin;
+1	Isfahan
+\.
+
+
+--
+-- Data for Name: default_comment; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.default_comment (id, text) FROM stdin;
+\.
+
+
+--
+-- Data for Name: django_admin_log; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: django_content_type; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.django_content_type (id, app_label, model) FROM stdin;
+1	default	users
+2	default	bookmark
+3	default	car
+4	default	city
+5	default	defaultcomment
+6	default	gift
+7	default	role
+8	default	takhfif
+9	default	travel
+10	default	gifted
+11	default	own
+12	default	pricepercity
+13	default	travelpart
+14	default	travelvote
+15	admin	logentry
+16	auth	permission
+17	auth	group
+18	contenttypes	contenttype
+19	sessions	session
+\.
+
+
+--
+-- Data for Name: django_migrations; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.django_migrations (id, app, name, applied) FROM stdin;
+1	default	0001_initial	2019-06-06 20:42:58.496973+04:30
+2	contenttypes	0001_initial	2019-06-06 20:42:58.572791+04:30
+3	admin	0001_initial	2019-06-06 20:42:58.669803+04:30
+4	admin	0002_logentry_remove_auto_add	2019-06-06 20:42:58.781373+04:30
+5	admin	0003_logentry_add_action_flag_choices	2019-06-06 20:42:58.813012+04:30
+6	contenttypes	0002_remove_content_type_name	2019-06-06 20:42:58.859447+04:30
+7	auth	0001_initial	2019-06-06 20:42:59.085176+04:30
+8	auth	0002_alter_permission_name_max_length	2019-06-06 20:42:59.338406+04:30
+9	auth	0003_alter_user_email_max_length	2019-06-06 20:42:59.372058+04:30
+10	auth	0004_alter_user_username_opts	2019-06-06 20:42:59.390573+04:30
+11	auth	0005_alter_user_last_login_null	2019-06-06 20:42:59.405246+04:30
+12	auth	0006_require_contenttypes_0002	2019-06-06 20:42:59.414346+04:30
+13	auth	0007_alter_validators_add_error_messages	2019-06-06 20:42:59.428665+04:30
+14	auth	0008_alter_user_username_max_length	2019-06-06 20:42:59.443996+04:30
+15	auth	0009_alter_user_last_name_max_length	2019-06-06 20:42:59.458301+04:30
+16	auth	0010_alter_group_name_max_length	2019-06-06 20:42:59.472983+04:30
+17	auth	0011_update_proxy_permissions	2019-06-06 20:42:59.496572+04:30
+18	sessions	0001_initial	2019-06-06 20:42:59.583072+04:30
+\.
+
+
+--
+-- Data for Name: django_session; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.django_session (session_key, session_data, expire_date) FROM stdin;
+f8vpjmc58uklfonyzakbh6d73wy4es6v	YWY4NjFiOTFmZGFlMzA2MDhjMTkwNGE5NWE2Yzk5YTE3YTQzOWRjMzp7Il9hdXRoX3VzZXJfaWQiOiIwOTMwMjQ1MDQyMyIsIl9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9oYXNoIjoiZjE4MTUyYzM1Y2IzNTkyODhlZGFjMzM1ODQ5NGJlNTczZjk0OGM4MiJ9	2019-06-20 21:15:11.08254+04:30
+y7vpkg1y4he3hu0gfvr4kk1mzfg7s85q	NzUzNmY3ZTFjYzZjY2I2OTRjMWQ2M2ZiMzViODU4OTdjMjM4ODY4Zjp7Il9hdXRoX3VzZXJfaWQiOiIwOTMwMjQ1MDQyMiIsIl9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9oYXNoIjoiZjE4MTUyYzM1Y2IzNTkyODhlZGFjMzM1ODQ5NGJlNTczZjk0OGM4MiJ9	2019-06-30 20:41:23.502333+04:30
+\.
+
+
+--
+-- Data for Name: gift; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.gift (type, value, name) FROM stdin;
+\.
+
+
+--
+-- Data for Name: gifted; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.gifted (type, value, mobile) FROM stdin;
+\.
+
+
+--
+-- Data for Name: own; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.own (pelak, mobile) FROM stdin;
+\.
+
+
+--
+-- Data for Name: price_per_city; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.price_per_city (id, price_per_kilometer) FROM stdin;
+\.
+
+
+--
+-- Data for Name: role; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.role (id, name) FROM stdin;
+1	Admin
+2	Passenger
+3	Driver
+\.
+
+
+--
+-- Data for Name: takhfif; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.takhfif (id, "time", travel_id, price, code) FROM stdin;
+\.
+
+
+--
+-- Data for Name: travel; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.travel (travel_id, start_point, start_point_lon, starttime, driver_mobile, passenger_mobile, destination_lat, destination_lon, type_of_payment, price, final_price, city_id) FROM stdin;
+5	1.10000002	2.20000005	2019-06-14 16:00:21.752007	\N	09302450423	2.20000005	3.29999995	1	1000	1000	1
+6	1.10000002	2.20000005	2019-06-14 16:03:20.423046	\N	09302450423	2.20000005	3.29999995	1	1000	1000	1
+7	1.10000002	2.20000005	2019-06-14 16:03:50.039649	09302450422	09302450423	2.20000005	3.29999995	1	1000	1000	1
+4	1.10000002	2.20000005	2019-06-14 15:59:25.219175	09302450422	09302450423	2.20000005	1.10000002	1	10000	10000	1
+\.
+
+
+--
+-- Data for Name: travel_part; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.travel_part (travel_id, no, lat, lon, rest_time) FROM stdin;
+\.
+
+
+--
+-- Data for Name: travel_vote; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.travel_vote (travel_id, from_id, star, default_comment_id, comment, to_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.users (mobile, name, lastname, profit, is_active, role_id, city_id, last_login, is_superuser) FROM stdin;
+09302450423	Mahdi	Alikhasi22	50000	t	2	1	2019-06-15	\N
+09302450422	Mohammad	Alikhasi	10000	t	3	1	2019-06-16	\N
+\.
+
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.auth_group_id_seq', 1, false);
+
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.auth_group_permissions_id_seq', 1, false);
+
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.auth_permission_id_seq', 76, true);
+
+
+--
+-- Name: city_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.city_id_seq', 1, false);
+
+
+--
+-- Name: default_comment_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.default_comment_id_seq', 1, false);
+
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.django_admin_log_id_seq', 1, false);
+
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.django_content_type_id_seq', 19, true);
+
+
+--
+-- Name: django_migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.django_migrations_id_seq', 18, true);
+
+
+--
+-- Name: gift_type_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.gift_type_seq', 1, false);
+
+
+--
+-- Name: role_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.role_id_seq', 3, true);
+
+
+--
+-- Name: takhfif_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.takhfif_id_seq', 1, false);
+
+
+--
+-- Name: travel_travel_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.travel_travel_id_seq', 7, true);
+
+
+--
+-- Name: auth_group auth_group_name_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_group
+    ADD CONSTRAINT auth_group_name_key UNIQUE (name);
+
+
+--
+-- Name: auth_group_permissions auth_group_permissions_group_id_permission_id_0cd325b0_uniq; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_group_id_permission_id_0cd325b0_uniq UNIQUE (group_id, permission_id);
+
+
+--
+-- Name: auth_group_permissions auth_group_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_group auth_group_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_group
+    ADD CONSTRAINT auth_group_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_permission auth_permission_content_type_id_codename_01ab375a_uniq; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_permission
+    ADD CONSTRAINT auth_permission_content_type_id_codename_01ab375a_uniq UNIQUE (content_type_id, codename);
+
+
+--
+-- Name: auth_permission auth_permission_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_permission
+    ADD CONSTRAINT auth_permission_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: bookmark bookmark_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.bookmark
+    ADD CONSTRAINT bookmark_pk PRIMARY KEY (lat, lon, passenger_mobile);
+
+
+--
+-- Name: car car_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.car
+    ADD CONSTRAINT car_pk PRIMARY KEY (pelak);
+
+
+--
+-- Name: city city_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.city
+    ADD CONSTRAINT city_pk PRIMARY KEY (id);
+
+
+--
+-- Name: default_comment default_comment_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.default_comment
+    ADD CONSTRAINT default_comment_pk PRIMARY KEY (id);
+
+
+--
+-- Name: django_admin_log django_admin_log_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_admin_log
+    ADD CONSTRAINT django_admin_log_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_content_type django_content_type_app_label_model_76bd3d3b_uniq; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_content_type
+    ADD CONSTRAINT django_content_type_app_label_model_76bd3d3b_uniq UNIQUE (app_label, model);
+
+
+--
+-- Name: django_content_type django_content_type_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_content_type
+    ADD CONSTRAINT django_content_type_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_migrations django_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_migrations
+    ADD CONSTRAINT django_migrations_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_session django_session_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_session
+    ADD CONSTRAINT django_session_pkey PRIMARY KEY (session_key);
+
+
+--
+-- Name: gift gift_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.gift
+    ADD CONSTRAINT gift_pk PRIMARY KEY (type, value);
+
+
+--
+-- Name: gifted gifted_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.gifted
+    ADD CONSTRAINT gifted_pk PRIMARY KEY (type, value, mobile);
+
+
+--
+-- Name: own own_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.own
+    ADD CONSTRAINT own_pk PRIMARY KEY (pelak, mobile);
+
+
+--
+-- Name: price_per_city price_per_city_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.price_per_city
+    ADD CONSTRAINT price_per_city_pk PRIMARY KEY (id);
+
+
+--
+-- Name: role role_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.role
+    ADD CONSTRAINT role_pk PRIMARY KEY (id);
+
+
+--
+-- Name: takhfif takhfif_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.takhfif
+    ADD CONSTRAINT takhfif_pk PRIMARY KEY (id);
+
+
+--
+-- Name: travel_part travel_part_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.travel_part
+    ADD CONSTRAINT travel_part_pk PRIMARY KEY (travel_id, no);
+
+
+--
+-- Name: travel travel_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.travel
+    ADD CONSTRAINT travel_pk PRIMARY KEY (travel_id);
+
+
+--
+-- Name: travel_vote travel_vote_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.travel_vote
+    ADD CONSTRAINT travel_vote_pk PRIMARY KEY (travel_id, from_id);
+
+
+--
+-- Name: users users_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.users
+    ADD CONSTRAINT users_pk PRIMARY KEY (mobile);
+
+
+--
+-- Name: auth_group_name_a6ea08ec_like; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX auth_group_name_a6ea08ec_like ON public.auth_group USING btree (name varchar_pattern_ops);
+
+
+--
+-- Name: auth_group_permissions_group_id_b120cbf9; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX auth_group_permissions_group_id_b120cbf9 ON public.auth_group_permissions USING btree (group_id);
+
+
+--
+-- Name: auth_group_permissions_permission_id_84c5c92e; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX auth_group_permissions_permission_id_84c5c92e ON public.auth_group_permissions USING btree (permission_id);
+
+
+--
+-- Name: auth_permission_content_type_id_2f476e4b; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX auth_permission_content_type_id_2f476e4b ON public.auth_permission USING btree (content_type_id);
+
+
+--
+-- Name: django_admin_log_content_type_id_c4bce8eb; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX django_admin_log_content_type_id_c4bce8eb ON public.django_admin_log USING btree (content_type_id);
+
+
+--
+-- Name: django_admin_log_user_id_c564eba6; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX django_admin_log_user_id_c564eba6 ON public.django_admin_log USING btree (user_id);
+
+
+--
+-- Name: django_admin_log_user_id_c564eba6_like; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX django_admin_log_user_id_c564eba6_like ON public.django_admin_log USING btree (user_id varchar_pattern_ops);
+
+
+--
+-- Name: django_session_expire_date_a5c62663; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX django_session_expire_date_a5c62663 ON public.django_session USING btree (expire_date);
+
+
+--
+-- Name: django_session_session_key_c0390e0f_like; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX django_session_session_key_c0390e0f_like ON public.django_session USING btree (session_key varchar_pattern_ops);
+
+
+--
+-- Name: auth_group_permissions auth_group_permissio_permission_id_84c5c92e_fk_auth_perm; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_group_permissions
+    ADD CONSTRAINT auth_group_permissio_permission_id_84c5c92e_fk_auth_perm FOREIGN KEY (permission_id) REFERENCES public.auth_permission(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_group_permissions auth_group_permissions_group_id_b120cbf9_fk_auth_group_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_group_id_b120cbf9_fk_auth_group_id FOREIGN KEY (group_id) REFERENCES public.auth_group(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_permission auth_permission_content_type_id_2f476e4b_fk_django_co; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_permission
+    ADD CONSTRAINT auth_permission_content_type_id_2f476e4b_fk_django_co FOREIGN KEY (content_type_id) REFERENCES public.django_content_type(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: own car_own_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.own
+    ADD CONSTRAINT car_own_fk FOREIGN KEY (pelak) REFERENCES public.car(pelak);
+
+
+--
+-- Name: price_per_city city_price_per_city_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.price_per_city
+    ADD CONSTRAINT city_price_per_city_fk FOREIGN KEY (id) REFERENCES public.city(id);
+
+
+--
+-- Name: travel city_travel_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.travel
+    ADD CONSTRAINT city_travel_fk FOREIGN KEY (city_id) REFERENCES public.city(id);
+
+
+--
+-- Name: users city_users_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.users
+    ADD CONSTRAINT city_users_fk FOREIGN KEY (city_id) REFERENCES public.city(id);
+
+
+--
+-- Name: travel_vote default_comment_vote_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.travel_vote
+    ADD CONSTRAINT default_comment_vote_fk FOREIGN KEY (default_comment_id) REFERENCES public.default_comment(id);
+
+
+--
+-- Name: django_admin_log django_admin_log_content_type_id_c4bce8eb_fk_django_co; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_admin_log
+    ADD CONSTRAINT django_admin_log_content_type_id_c4bce8eb_fk_django_co FOREIGN KEY (content_type_id) REFERENCES public.django_content_type(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: django_admin_log django_admin_log_user_id_c564eba6_fk_users_mobile; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_admin_log
+    ADD CONSTRAINT django_admin_log_user_id_c564eba6_fk_users_mobile FOREIGN KEY (user_id) REFERENCES public.users(mobile) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: gifted gift_gifted_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.gifted
+    ADD CONSTRAINT gift_gifted_fk FOREIGN KEY (type, value) REFERENCES public.gift(type, value);
+
+
+--
+-- Name: users role_user_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.users
+    ADD CONSTRAINT role_user_fk FOREIGN KEY (role_id) REFERENCES public.role(id);
+
+
+--
+-- Name: travel_part travel_destination_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.travel_part
+    ADD CONSTRAINT travel_destination_fk FOREIGN KEY (travel_id) REFERENCES public.travel(travel_id);
+
+
+--
+-- Name: takhfif travel_takhfif_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.takhfif
+    ADD CONSTRAINT travel_takhfif_fk FOREIGN KEY (travel_id) REFERENCES public.travel(travel_id);
+
+
+--
+-- Name: travel_vote travel_vote_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.travel_vote
+    ADD CONSTRAINT travel_vote_fk FOREIGN KEY (travel_id) REFERENCES public.travel(travel_id);
+
+
+--
+-- Name: bookmark user_bookmark_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.bookmark
+    ADD CONSTRAINT user_bookmark_fk FOREIGN KEY (passenger_mobile) REFERENCES public.users(mobile);
+
+
+--
+-- Name: gifted user_gifted_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.gifted
+    ADD CONSTRAINT user_gifted_fk FOREIGN KEY (mobile) REFERENCES public.users(mobile);
+
+
+--
+-- Name: own user_own_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.own
+    ADD CONSTRAINT user_own_fk FOREIGN KEY (mobile) REFERENCES public.users(mobile);
+
+
+--
+-- Name: travel user_travel_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.travel
+    ADD CONSTRAINT user_travel_fk FOREIGN KEY (passenger_mobile) REFERENCES public.users(mobile);
+
+
+--
+-- Name: travel user_travel_fk1; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.travel
+    ADD CONSTRAINT user_travel_fk1 FOREIGN KEY (driver_mobile) REFERENCES public.users(mobile);
+
+
+--
+-- Name: travel_vote user_travel_vote_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.travel_vote
+    ADD CONSTRAINT user_travel_vote_fk FOREIGN KEY (from_id) REFERENCES public.users(mobile);
+
+
+--
+-- Name: travel_vote user_travel_vote_fk1; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.travel_vote
+    ADD CONSTRAINT user_travel_vote_fk1 FOREIGN KEY (to_id) REFERENCES public.users(mobile);
+
+
+--
+-- Name: SCHEMA public; Type: ACL; Schema: -; Owner: postgres
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM postgres;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+--
+-- PostgreSQL database dump complete
+--
+

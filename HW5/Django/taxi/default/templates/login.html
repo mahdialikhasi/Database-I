@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<form action="/login/" method="post">
+{% csrf_token %}
+	<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+    	<input class="mdl-textfield__input" type="text" id="mobile" name="mobile">
+    	<label class="mdl-textfield__label" for="mobile">Mobile</label>
+  	</div>
+	<input type="password" name="password" id="password" style="display: none">
+	<input type="submit" value="Login" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" />
+	<br>
+</form>
+<a href="/">Go Back</a>
+{% endblock %}

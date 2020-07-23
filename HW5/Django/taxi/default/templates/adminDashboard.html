@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% endblock %}
+{% block menu %}
+<div class="mdl-layout__tab-bar mdl-js-ripple-effect mdl-color--primary-dark">
+	<a href="/admin/" class="mdl-layout__tab is-active">Dashboard</a>
+	<a href="/user/list" class="mdl-layout__tab">user list</a>
+	<a href="/travel/list" class="mdl-layout__tab">travel list</a>
+	<a href="/city/price" class="mdl-layout__tab">city price</a>
+	<a href="/city/list" class="mdl-layout__tab">city list</a>
+	<a href="/user/active" class="mdl-layout__tab">active/deactive user</a>
+	<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-shadow--4dp mdl-color--accent" id="add">
+		<i class="material-icons" role="presentation">add</i>
+		<span class="visuallyhidden">Add</span>
+	</button>
+</div>
+{% endblock %}

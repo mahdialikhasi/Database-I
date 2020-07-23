@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="mdl-cell mdl-cell--12-col">
+	{% for travel in travels %}
+	<div class="mdl-grid">
+		<div class="mdl-cell mdl-cell--6-col">
+			<div class="demo-card-wide mdl-card mdl-shadow--2dp">
+				<div class="mdl-card__title">
+					<h2 class="mdl-card__title-text">Travel Info</h2>
+				</div>
+				<div class="mdl-card__supporting-text">
+					<ul class="demo-list-icon mdl-list">
+						<li class="mdl-list__item">
+							<span class="mdl-list__item-primary-content">
+								<i class="material-icons mdl-list__item-icon">person</i>
+								Driver : {{travel.driver_mobile}}
+							</span>
+						</li>
+						<li class="mdl-list__item">
+							<span class="mdl-list__item-primary-content">
+								From : {{travel.start_point}}, {{travel.start_point_lon}}
+							</span>
+						</li>
+						<li class="mdl-list__item">
+							<span class="mdl-list__item-primary-content">
+								To : {{travel.destination_lat}}, {{travel.destination_lon}}
+							</span>
+						</li>
+						<li class="mdl-list__item">
+							<span class="mdl-list__item-primary-content">
+								Time : {{travel.starttime}}
+							</span>
+						</li>
+						<li class="mdl-list__item">
+							<span class="mdl-list__item-primary-content">
+								Price : {{travel.final_price}}
+							</span>
+						</li>
+						<li class="mdl-list__item">
+							<span class="mdl-list__item-primary-content">
+								Type of Payment : 
+								{% if travel.type_of_payment == '1' %}
+									Online
+								{% else %}
+									Cash
+								{% endif %}
+							</span>
+						</li>
+						<li class="mdl-list__item">
+							<span class="mdl-list__item-primary-content">
+								City : {{travel.city.name}}
+							</span>
+						</li>
+					</ul>
+				</div>
+				<div class="mdl-card__actions mdl-card--border">
+					{% if role_id == 2 %}
+					<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="/travel/view/{{travel.travel_id}}">
+						View Travel
+					</a>
+					{% elif role_id == 3 %}
+					<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="/travel/accept/{{travel.travel_id}}">
+						Accept Travel
+					</a>
+					{% endif %}
+				</div>
+			</div>
+		</div>		
+	</div>
+	{% endfor %}
+</div>
+{% endblock %}
+{% block menu %}
+{% if role_id == 2 %}
+<div class="mdl-layout__tab-bar mdl-js-ripple-effect mdl-color--primary-dark">
+	<a href="/passenger-dashboard/" class="mdl-layout__tab">Dashboard</a>
+	<a href="/bookmark/add" class="mdl-layout__tab">Add Bookmark</a>
+	<a href="/travel/add" class="mdl-layout__tab">new travel</a>
+	<a href="/travel/list" class="mdl-layout__tab is-active">travel list</a>
+	<a href="/charge" class="mdl-layout__tab">charge</a>
+	<a href="/edit" class="mdl-layout__tab">Edit Profile</a>
+	<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-shadow--4dp mdl-color--accent" id="add">
+		<i class="material-icons" role="presentation">add</i>
+		<span class="visuallyhidden">Add</span>
+	</button>
+</div>
+{% elif role_id == 3 %}
+<div class="mdl-layout__tab-bar mdl-js-ripple-effect mdl-color--primary-dark">
+	<a href="/driver-dashboard/" class="mdl-layout__tab">Dashboard</a>
+	<a href="/travel/find" class="mdl-layout__tab is-active">find new travel</a>
+	<a href="/travel/list" class="mdl-layout__tab">travel list</a>
+	<a href="/edit" class="mdl-layout__tab">Edit Profile</a>
+	<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-shadow--4dp mdl-color--accent" id="add">
+		<i class="material-icons" role="presentation">add</i>
+		<span class="visuallyhidden">Add</span>
+	</button>
+</div>
+{% else %}
+<div class="mdl-layout__tab-bar mdl-js-ripple-effect mdl-color--primary-dark">
+	<a href="/admin/" class="mdl-layout__tab">Dashboard</a>
+	<a href="/user/list" class="mdl-layout__tab">user list</a>
+	<a href="/travel/list" class="mdl-layout__tab is-active">travel list</a>
+	<a href="/city/price" class="mdl-layout__tab">city price</a>
+	<a href="/city/list" class="mdl-layout__tab">city list</a>
+	<a href="/user/active" class="mdl-layout__tab">active/deactive user</a>
+	<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-shadow--4dp mdl-color--accent" id="add">
+		<i class="material-icons" role="presentation">add</i>
+		<span class="visuallyhidden">Add</span>
+	</button>
+</div>
+{% endif %}
+{% endblock %}

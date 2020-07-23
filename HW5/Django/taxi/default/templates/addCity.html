@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="mdl-cell mdl-cell--4-col">
+	<div class="demo-card-wide mdl-card mdl-shadow--2dp">
+		<div class="mdl-card__title">
+			<h2 class="mdl-card__title-text">Add new</h2>
+		</div>
+		<div class="mdl-card__supporting-text">
+			<form action="." method="post">
+				{% csrf_token %}
+				{{ form.as_p }}
+				<input type="submit" value="Add" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" />
+			</form>
+			
+		</div>
+	</div>
+</div>
+{% endblock %}
+{% block menu %}
+<div class="mdl-layout__tab-bar mdl-js-ripple-effect mdl-color--primary-dark">
+	<a href="/admin/" class="mdl-layout__tab">Dashboard</a>
+	<a href="/user/list" class="mdl-layout__tab">user list</a>
+	<a href="/travel/list" class="mdl-layout__tab">travel list</a>
+	<a href="/city/price" class="mdl-layout__tab">city price</a>
+	<a href="/city/list" class="mdl-layout__tab is-active">city list</a>
+	<a href="/user/active" class="mdl-layout__tab">active/deactive user</a>
+	<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-shadow--4dp mdl-color--accent" id="add">
+		<i class="material-icons" role="presentation">add</i>
+		<span class="visuallyhidden">Add</span>
+	</button>
+</div>
+
+{% endblock %}

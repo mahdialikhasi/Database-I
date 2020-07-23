@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+<form action="." method="post" class="s">
+{% csrf_token %}
+{{ form.as_p }}
+	<input type="submit" value="Login" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" />
+	<br>
+</form>
+<a href="/">Go Back</a>
+{% endblock %}
